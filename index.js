@@ -1,3 +1,18 @@
+////////////////////////Thing to keep in mind:
+// Relationships between objects
+//     Reread, reread, reread the prompt
+//     Create Data Model relationship diagram
+// Break down the problem into plain language steps before starting
+// You DO NOT NEED TO USE Date() class - date is given as a string (turn it into an array for easy comparison).
+//     Use current year as current date
+// Try Catch used around the main logic
+// Main function was already created for you, so use it
+// The whole logic revolves around 1 main loop!!!!!
+// Refer to the expected output.
+
+//////////////////////////////////////////////
+
+
 // The provided course information.
 const CourseInfo = {
   id: 451,
