@@ -102,17 +102,21 @@ const LearnerSubmissions = [
 ///////////////////// Helper Function
 ////////////////////
 
-function assignmentInCourseCheck(){
+//// this functon checks if the assignment group doesnt belog to the course
+function assignmentInCourseCheck(course, ag) {
+  if (ag.course_id !== course.id) {
+    return false;
+  }
+  return true;
+}
+
+/// this function gets the assignment 
+function assignmentInfo() {
 
 }
 
-
-function assignmentInfo(){
-
-}
-
-
-function lateOrOnTime(){
+/// this function checks the late submission
+function lateOrOnTime() {
 
 }
 
@@ -158,29 +162,40 @@ function lateOrOnTime(){
 
 function getLearnerData(course, ag, submissions) {
 
-const result = [];
+  const result = [];
 
-try {
-  
+  try {
 
+    // all logic goes here
 
-
-
-
-
-
-
-
-
-
-
+    // validating the course id in course and assignment object
+    console.log("Checking if course IDs match...");
+    if (!assignmentInCourseCheck(course, ag)) {
+      throw new Error(`Invalid Input: Assignment Group ${ag.id} does not belong to Course ${course.id}`);
+    } else {
+      console.log(`1st check complete, Assignment Group ${ag.id} belongs to Course with id ${course.id}. Proceeding...`);
+      console.log("\n");
+    }
 
 
 
 
-} catch (error) {
-  
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+  } catch (error) {
+
+  }
 
 
 
