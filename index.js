@@ -98,6 +98,24 @@ const LearnerSubmissions = [
   }
 ];
 
+/////////////////////////////////////////////////////////////////////////////////
+///////////////////// Helper Function
+////////////////////
+
+function assignmentInCourseCheck(){
+
+}
+
+
+function assignmentInfo(){
+
+}
+
+
+function lateOrOnTime(){
+
+}
+
 
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -122,11 +140,11 @@ const LearnerSubmissions = [
 
 
 ///////// LOGIC: how to proceed, step by step:
-// inside getLearnerData, first, start with try/catch and do  the main check: CourseInfo (id) == AssignmentGroup (course_id). if not, ERROR.
+// inside getLearnerData, first, start with try/catch and do  the main check: CourseInfo (id) == AssignmentGroup (course_id). if not, ERROR. maybe use a helper function
 // initialise a leaner object which will store data for each student. i ll need 3 data (as per assignment), id, score, points_possible to do the calculations.
 //////// Start MAIN LOOP: 
 // i have to iterate through learnerSubmissions ('submissions' inside getLearnerData()), loop for each submission. Goal: get this learner object with data
-// for each submission: get assignment details by using id, from assignmentGroup, add logic for this. i will need to iterate through 'ag', so another loop.
+// for each submission: get assignment details by using id, from assignmentGroup, add logic for this. i will need to iterate through 'ag', so another loop. or maybe use another helper function to do this work.
 // check 1: after this, put another try/catch here for points_possible==0.
 // check 2: check if the assignment is due yet. Dylan said to turn the date into array, so use .split("-") and compare the year string. if due>current year, dont take that data
 // if its late: change score, score-10. if not, keep the score. 
@@ -140,9 +158,29 @@ const LearnerSubmissions = [
 
 function getLearnerData(course, ag, submissions) {
 
+const result = [];
+
+try {
+  
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+} catch (error) {
+  
+}
 
 
 
