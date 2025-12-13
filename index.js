@@ -121,28 +121,58 @@ const LearnerSubmissions = [
 /// 10. Result format: so, i have to create an array of object called result. the object here are the learner student information (id, avg, 1 (avg of assgn 1), 2(avg of assgn 2)) 
 
 
-///////// LOGIC: how to proceed:
-// first, so the main check: CourseInfo (id) == AssignmentGroup (course_id). if not, ERROR.
-// i have to iterate through learnerSubmissions, get learner_id
+///////// LOGIC: how to proceed, step by step:
+// inside getLearnerData, first, start with try/catch and do  the main check: CourseInfo (id) == AssignmentGroup (course_id). if not, ERROR.
+// initialise a leaner object which will store data for each student. i ll need 3 data (as per assignment), id, score, points_possible to do the calculations.
+//////// Start MAIN LOOP: 
+// i have to iterate through learnerSubmissions ('submissions' inside getLearnerData()), loop for each submission. Goal: get this learner object with data
+// for each submission: get assignment details by using id, from assignmentGroup, add logic for this. i will need to iterate through 'ag', so another loop.
+// check 1: after this, put another try/catch here for points_possible==0.
+// check 2: check if the assignment is due yet. Dylan said to turn the date into array, so use .split("-") and compare the year string. if due>current year, dont take that data
+// if its late: change score, score-10. if not, keep the score. 
+// Now, by this time i will have 3 data, id, score, point_possible. add these 3 data into lerner object. so, i will have lerner objects with corresponding data that i will need to process next.
+/////// main loop should stop here
+////// data procesing:
+// i have to iterate now through my learners object, and get indivual data, like do the calculations. i will decide how to do this once i reach this point. do test till here.
+
 
 
 
 function getLearnerData(course, ag, submissions) {
-  // here, we would process this data to achieve the desired result.
-  const result = [
-    {
-      id: 125,
-      avg: 0.985, // (47 + 150) / (50 + 150)
-      1: 0.94, // 47 / 50
-      2: 1.0 // 150 / 150
-    },
-    {
-      id: 132,
-      avg: 0.82, // (39 + 125) / (50 + 150)
-      1: 0.78, // 39 / 50
-      2: 0.833 // late: (140 - 15) / 150
-    }
-  ];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // // here, we would process this data to achieve the desired result.
+  // const result = [
+  //   {
+  //     id: 125,
+  //     avg: 0.985, // (47 + 150) / (50 + 150)
+  //     1: 0.94, // 47 / 50
+  //     2: 1.0 // 150 / 150
+  //   },
+  //   {
+  //     id: 132,
+  //     avg: 0.82, // (39 + 125) / (50 + 150)
+  //     1: 0.78, // 39 / 50
+  //     2: 0.833 // late: (140 - 15) / 150
+  //   }
+  // ];
 
   return result;
 }
