@@ -1,4 +1,9 @@
-////////////////////////Thing to keep in mind:
+console.log("\n");
+console.log("////////////// SBA 308: JavaScript Fundamentals ////////////// ")
+console.log("\n");
+
+
+////////////////////////Thing to keep in mind (from dylan):
 // Relationships between objects
 //     Reread, reread, reread the prompt
 //     Create Data Model relationship diagram
@@ -13,6 +18,9 @@
 //////////////////////////////////////////////
 
 // The provided course information.
+
+
+
 const CourseInfo = {
   id: 451,
   name: "Introduction to JavaScript"
@@ -89,6 +97,35 @@ const LearnerSubmissions = [
     }
   }
 ];
+
+
+
+/////////////////////////////////////////////////////////////////////////////////
+///////////////////// Main Function
+////////////////////
+
+//////////////////// WHAT I KNOW: 
+///// this is basically a project to GRADE submissions. there are assignment info, due dates, submission date etc. i have to grade based on these info.
+///// I have 2 main OBJECTS; CourseInfo, AssignmentGroup, and 2 main ARRAY of objects; assignments, LearnerSubmissions.
+//// getLearnerData() is the entry point for this project. Thats where all of my logic code goes in.
+//////// I have to first establish relationship between the different objects and its properties:
+/// 1. CourseInfo (id) links to AssignmentGroup (course_id). This has to be my first check. if the assignment group doesnt belog to the course, i should throw an error.
+/// 2. LearnerSubmission has assignmet_id, this must match the assignment in assignmentGroup array. and I can get the points_possible and due_at data to grade.
+/// 3. Note: assignments given are in the form of array inside AssignmentGroup. submission is an object inside LearnerSubmission
+/// 4. Note: So it means, that i will need to access properties like learner.submission.score..... or something similar.
+/// 5. score: the score given to the learner is inside submission object which itelf is inside LearnerSubmission. total points is inside assignment array which itself is inside assignmentGroup object.
+/// 6. which means to get the avg, i will need to do something linke this: submission.score/assignments.point_possible
+/// 7. So, the MAIN LOOP that we talked about in class, has to be looping through LearnerSubmissions. Idea is to get the assignment_id (and match with assignments in assignmentGroup) and learner submission result (submitted_at and score)
+/// 8. we were also asked to not use date() function. so i can just do .split("-") and get the year, month, date in string array format. and i can compare the year with current year (which i can hardcode as a string "2025"). if due_at(the year)>current_date(2025), dont get this data.
+/// 9. Error handling: i have to do some basic error handling: like points_possible==0 or courseid!=courseinfo id etc.
+/// 10. Result format: so, i have to create an array of object called result. the object here are the learner student information (id, avg, 1 (avg of assgn 1), 2(avg of assgn 2)) 
+
+
+///////// LOGIC: how to proceed:
+// first, so the main check: CourseInfo (id) == AssignmentGroup (course_id). if not, ERROR.
+// i have to iterate through learnerSubmissions, get learner_id
+
+
 
 function getLearnerData(course, ag, submissions) {
   // here, we would process this data to achieve the desired result.
