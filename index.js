@@ -110,9 +110,12 @@ function assignmentInCourseCheck(course, ag) {
   return true;
 }
 
-/// this function gets the assignment 
-function assignmentInfo() {
-
+/// this function gets the assignment details from AssignmentGroup, which is assignments object inside assignments array inside AssignmentGroup object
+function assignmentInfo(ag, assignmentId) {
+  for(let i=0;i<ag.assignments.length;i++){
+    return ag.assignments[i];
+  }
+  return null;
 }
 
 /// this function checks the late submission
@@ -168,13 +171,37 @@ function getLearnerData(course, ag, submissions) {
 
     // all logic goes here
 
-    // validating the course id in course and assignment object
+    // step 1: validating the course id in course and assignment object
     console.log("Checking if course IDs match...");
     if (!assignmentInCourseCheck(course, ag)) {
       throw new Error(`Invalid Input: Assignment Group ${ag.id} does not belong to Course ${course.id}`);
     } else {
       console.log(`1st check complete, Assignment Group ${ag.id} belongs to Course with id ${course.id}. Proceeding...`);
       console.log("\n");
+    }
+
+    // step 2: start the main loop
+    console.log("Starting Main Loop...iterating through 'submissions'.");
+    let learnerInfo = {};
+
+    for (let i = 0; i < submissions.length; i++) { /// iterating through each submission (LearnerSubmissions array)
+
+      let eachSubmission = submissions[i];
+      let learnerId = eachSubmission.learner_id;
+      let assignmentId = eachSubmission.assignment_id;
+      /////TESTING
+      console.log('TESTING: eachSubmission: ', eachSubmission);
+      console.log('TESTING: learnerId: ', learnerId);
+      console.log('TESTING: assignmentId: ', assignmentId);
+
+      // get the assignment details from AssignmentGroup, which is assignments object inside assignments array inside AssignmentGroup object: use helper function and feed it with AssignmentGroup and assignmentId
+      let assignment = assignmentInfo(ag, assignmentId);
+      /////TESTING
+      console.log('TESTING: assignment: ', assignment);
+
+
+
+
     }
 
 
@@ -190,11 +217,8 @@ function getLearnerData(course, ag, submissions) {
 
 
 
-
-
-
   } catch (error) {
-
+    console.log("ERROR: ", error.message);
   }
 
 
