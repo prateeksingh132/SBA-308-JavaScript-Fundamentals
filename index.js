@@ -192,9 +192,9 @@ function getLearnerData(course, ag, submissions) {
       let learnerId = submission.learner_id;
       let assignmentId = submission.assignment_id;
       ///TESTING
-      console.log('TESTING: eachSubmission: ', submission);
-      console.log('TESTING: learnerId: ', learnerId);
-      console.log('TESTING: assignmentId: ', assignmentId);
+      // console.log('TESTING: eachSubmission: ', submission);
+      // console.log('TESTING: learnerId: ', learnerId);
+      // console.log('TESTING: assignmentId: ', assignmentId);
 
       // get the assignment details from AssignmentGroup, which is assignments object inside assignments array inside AssignmentGroup object: use helper function and feed it with AssignmentGroup and assignmentId
       let assignment = assignmentInfo(ag, assignmentId);
@@ -203,14 +203,14 @@ function getLearnerData(course, ag, submissions) {
 
 
       // Step3: ERROR HANDLING 2: CHECK: check if you can find the assignment using id. if we get null from helper function, throw error
-      // if (!assignment) { // if we get null from assignmentInfo() helper function, which means we didnt find the assignment, such assignment doesnt exist, hence throw error
-      //   throw new Error(`Invalid assignment: Assignment Group ${assignmentId} is not there in the AssignmentGroup.`);
-      // }
+      if (!assignment) { // if we get null from assignmentInfo() helper function, which means we didnt find the assignment, such assignment doesnt exist, hence throw error
+        throw new Error(`Invalid assignment: Assignment Group ${assignmentId} is not there in the AssignmentGroup.`);
+      }
 
-      // // Step4: ERROR HANDLING 3: error handling for points_possible = 0
-      // if(assignment.points_possible==0){
-      //   throw new Error(`Invalid points_possible: Assignment ${assignment.id} has 0 points possible, which is INVALID.`);
-      // }
+      // Step4: ERROR HANDLING 3: error handling for points_possible = 0
+      if(assignment.points_possible==0){
+        throw new Error(`Invalid points_possible: Assignment ${assignment.id} has 0 points possible, which is INVALID.`);
+      }
 
 
 
