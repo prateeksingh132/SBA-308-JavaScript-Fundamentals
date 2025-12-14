@@ -110,12 +110,14 @@ function assignmentInCourseCheck(course, ag) {
   return true;
 }
 
-/// this function gets the assignment details from AssignmentGroup, which is assignments object inside assignments array inside AssignmentGroup object
+/// this function gets the assignment details from AssignmentGroup using id, which is assignments object inside assignments array inside AssignmentGroup object
 function assignmentInfo(ag, assignmentId) {
-  for(let i=0;i<ag.assignments.length;i++){
-    return ag.assignments[i];
+  for (let i = 0; i < ag.assignments.length; i++) {
+    if (ag.assignment[i].id === assignmentId) {
+      return ag.assignments[i];
+    }
   }
-  return null;
+  return null; // returning null if not found
 }
 
 /// this function checks the late submission
@@ -171,7 +173,7 @@ function getLearnerData(course, ag, submissions) {
 
     // all logic goes here
 
-    // step 1: validating the course id in course and assignment object
+    // step 1: ERROR HANDLING 1: CHECK: validating the course id in course and assignment object
     console.log("Checking if course IDs match...");
     if (!assignmentInCourseCheck(course, ag)) {
       throw new Error(`Invalid Input: Assignment Group ${ag.id} does not belong to Course ${course.id}`);
@@ -186,19 +188,29 @@ function getLearnerData(course, ag, submissions) {
 
     for (let i = 0; i < submissions.length; i++) { /// iterating through each submission (LearnerSubmissions array)
 
-      let eachSubmission = submissions[i];
-      let learnerId = eachSubmission.learner_id;
-      let assignmentId = eachSubmission.assignment_id;
-      /////TESTING
-      console.log('TESTING: eachSubmission: ', eachSubmission);
+      let submission = submissions[i];
+      let learnerId = submission.learner_id;
+      let assignmentId = submission.assignment_id;
+      ///TESTING
+      console.log('TESTING: eachSubmission: ', submission);
       console.log('TESTING: learnerId: ', learnerId);
       console.log('TESTING: assignmentId: ', assignmentId);
 
       // get the assignment details from AssignmentGroup, which is assignments object inside assignments array inside AssignmentGroup object: use helper function and feed it with AssignmentGroup and assignmentId
       let assignment = assignmentInfo(ag, assignmentId);
-      /////TESTING
-      console.log('TESTING: assignment: ', assignment);
+      ///TESTING
+      //console.log('TESTING: assignment: ', assignment);
 
+
+      // Step3: ERROR HANDLING 2: CHECK: check if you can find the assignment using id. if we get null from helper function, throw error
+      // if (!assignment) { // if we get null from assignmentInfo() helper function, which means we didnt find the assignment, such assignment doesnt exist, hence throw error
+      //   throw new Error(`Invalid assignment: Assignment Group ${assignmentId} is not there in the AssignmentGroup.`);
+      // }
+
+      // // Step4: ERROR HANDLING 3: error handling for points_possible = 0
+      // if(assignment.points_possible==0){
+      //   throw new Error(`Invalid points_possible: Assignment ${assignment.id} has 0 points possible, which is INVALID.`);
+      // }
 
 
 
