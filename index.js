@@ -112,8 +112,9 @@ function assignmentInCourseCheck(course, ag) {
 
 /// this function gets the assignment details from AssignmentGroup using id, which is assignments object inside assignments array inside AssignmentGroup object
 function assignmentInfo(ag, assignmentId) {
+  // looping through the assignments array inside ag
   for (let i = 0; i < ag.assignments.length; i++) {
-    if (ag.assignment[i].id === assignmentId) {
+    if (ag.assignments[i].id === assignmentId) { // found the matching assignment
       return ag.assignments[i];
     }
   }
@@ -121,7 +122,39 @@ function assignmentInfo(ag, assignmentId) {
 }
 
 /// this function checks the late submission
-function lateOrOnTime() {
+function lateOrOnTime(submittedDate, dueDate) {
+
+  // i am gonna split the date string by "-" to get [year, month, day]
+  let submittedArray = submittedDate.split("-");
+  let dueArray = dueDate.split("-");
+
+  // step 1: compare years. 
+  // if years are equal, make sure you go to the next if statement. so dont use any else or else if here.
+  // using parseInt to convert string to number for comparison
+  if (parseInt(submittedArray[0]) > parseInt(dueArray[0])) {
+    return true; // it is late (year is greater)
+  }
+  if (parseInt(submittedArray[0]) < parseInt(dueArray[0])) {
+    return false; // it is early (year is smaller)
+  }
+
+  // step 2: compare months (if years are same). 
+  // Goal: i should only reach to this point if the years are equal. 
+  // if months are equal too, again we need to make sure we can go to the next if statement. so dont use any else or else if here.
+  if (parseInt(submittedArray[1]) > parseInt(dueArray[1])) {
+    return true; // late
+  }
+  if (parseInt(submittedArray[1]) < parseInt(dueArray[1])) {
+    return false; // early
+  }
+
+  // step 3: compare days (if months and years are same)
+  // Goal: i should only reach to this point if the years as well as months are equal. 
+  if (parseInt(submittedArray[2]) > parseInt(dueArray[2])) {
+    return true; // late
+  }
+
+  return false; // strictly on time or early
 
 }
 
@@ -184,15 +217,19 @@ function getLearnerData(course, ag, submissions) {
 
     // step 2: start the main loop
     console.log("Starting Main Loop...iterating through 'submissions'.");
+
+    // I am creating a temporary object to hold data for each learner as I loop
+    // Found an example on stackoverflow to use object as value inside an object, use this for future debugging: https://stackoverflow.com/questions/6429959/objects-inside-objects-in-javascript 
+    // Goal: our lerner data should look something like this at the end of the loop: { learner_id: { id: 125, totalScore: 0, totalPossible: 0, 1: 0, ... } }
     let learnerInfo = {};
 
     for (let i = 0; i < submissions.length; i++) { /// iterating through each submission (LearnerSubmissions array)
 
-      let submission = submissions[i];
-      let learnerId = submission.learner_id;
-      let assignmentId = submission.assignment_id;
+      let eachSubmission = submissions[i];
+      let learnerId = eachSubmission.learner_id;
+      let assignmentId = eachSubmission.assignment_id;
       ///TESTING
-      // console.log('TESTING: eachSubmission: ', submission);
+      // console.log('TESTING: eachSubmission: ', eachSubmission);
       // console.log('TESTING: learnerId: ', learnerId);
       // console.log('TESTING: assignmentId: ', assignmentId);
 
@@ -202,20 +239,77 @@ function getLearnerData(course, ag, submissions) {
       //console.log('TESTING: assignment: ', assignment);
 
 
-      // Step3: ERROR HANDLING 2: CHECK: check if you can find the assignment using id. if we get null from helper function, throw error
+      // step3: ERROR HANDLING 2: CHECK: check if you can find the assignment using id. if we get null from helper function, throw error
       if (!assignment) { // if we get null from assignmentInfo() helper function, which means we didnt find the assignment, such assignment doesnt exist, hence throw error
-        throw new Error(`Invalid assignment: Assignment Group ${assignmentId} is not there in the AssignmentGroup.`);
+        console.log(`Assignment ID ${assignmentId} not found. Skipping.`);
+        // CHANGE: change made here, i realise if i throw error here, it stops moving to other assignment and stops the project, which we dont want. so i am gonna use continue.
+        continue;
       }
 
-      // Step4: ERROR HANDLING 3: error handling for points_possible = 0
-      if(assignment.points_possible==0){
+      // step4: ERROR HANDLING 3: error handling for points_possible == 0
+      // I cant divide by zero later, so I need to check this now
+      if (assignment.points_possible == 0) {
         throw new Error(`Invalid points_possible: Assignment ${assignment.id} has 0 points possible, which is INVALID.`);
       }
 
+      // step 5: check if assignment is due yet
+      // using the split technique again to get the year. Assignment 3 is year 3156. make sure this data is skipped in the final result.
+      let dueYear = parseInt(assignment.due_at.split("-")[0]);
+      let currentYear = 2025; // Dylan asked to use current year as this year 2025 in the class
 
+      if (dueYear > currentYear) {
+        // console.log("Assignment is not due yet. Skipping...");
+        continue; // skip this iteration of the loop
+      }
 
-    }
+      // step 6: initialise learner object if it doesn't exist in my temporary learnerInfo
+      // see this link for future debugging how they created and used the object as value of an object: https://stackoverflow.com/questions/69767220/how-to-insert-object-inside-an-object-in-javascript
+      if (!learnerInfo[learnerId]) {
+        learnerInfo[learnerId] = {
+          id: learnerId,
+          totalScore: 0,
+          totalPossible: 0
+        };
+      }
 
+      ///TESTING
+      // console.log('TESTING: learnerInfo: ', learnerInfo);
+
+      // step 7: check for LATE submission and calculate score
+      // i will use my helper function lateOrOnTime() here
+      let score = eachSubmission.submission.score;
+      let possible = assignment.points_possible;
+
+      if (lateOrOnTime(eachSubmission.submission.submitted_at, assignment.due_at)) {
+        console.log(`Learner ${learnerId} submitted Assignment ${assignment.id} LATE.`);
+        // deduct 10% of total points possible
+        let penalty = possible * 0.10;
+        score = score - penalty;
+        ///TESTING
+        // console.log('TESTING: score: ', score);
+        // console.log(`New score after penalty: ${score}`);
+      }
+
+      // step 8: update the learner's totals in my learnerInfo object
+      learnerInfo[learnerId].totalScore += score;
+      learnerInfo[learnerId].totalPossible += possible;
+
+      ///TESTING
+      // console.log('TESTING: learnerInfo: ', learnerInfo);
+
+      // step 9: Calculate individual assignment percentage and store it
+      // format should be key: assignment_id, value: percentage
+      let percentage = score / possible;
+      learnerInfo[learnerId][assignment.id] = percentage;
+
+      ///TESTING
+      // console.log('TESTING: learnerInfo: ', learnerInfo);
+
+      ///// TESTING
+      console.log('TESTING: learnerInfo : ', learnerInfo);
+    } 
+    
+    ////////// main loop ends
 
 
 
@@ -263,6 +357,7 @@ function getLearnerData(course, ag, submissions) {
   //   }
   // ];
 
+  // final result as is asked in the assignment
   return result;
 }
 
