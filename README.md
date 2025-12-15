@@ -45,7 +45,7 @@ I have also created (and used during code creation) test points (log statement) 
 
 * What would you add to, or change about your application if given more time?
 
-(1) Maybe I can make my lateOrOnTime() function more versatile by using time() function. or add error handling in this function to handle incorrectly formatted date information.
+(1) Maybe I can make my lateOrOnTime() function more versatile by using in-built date() or time() function. or add error handling in this function to handle incorrectly formatted date information.
 
 (2) I would figure out more test scenarios of bugs or where the code can fail and add more error handling for them.
 
