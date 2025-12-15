@@ -98,6 +98,24 @@ const LearnerSubmissions = [
   }
 ];
 
+/////// TEST
+/////////////////// Test Case 1: Course id different than id in assignment info
+// const CourseInfo = {
+//   id: 347,
+//   name: "Introduction to JavaScript"
+// };
+
+/////////////////// Test Case 2: id in LearnerSubmissions and AssignmentGroup check
+
+/////////////////// Test Case 3: points_possible == 0 check
+
+/////////////////// Test Case 4: due date check
+
+/////////////////// Test Case 5: late submission penalty check
+
+
+
+
 /////////////////////////////////////////////////////////////////////////////////
 ///////////////////// Helper Function
 ////////////////////
