@@ -410,6 +410,7 @@ const result = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
 
 /////////////////////////////// printing final result
 
+
 console.log('\n');
 console.log('************ Grading Process Finished ***********');
 console.log('************ Printing Final Grade Result Array ***********');
@@ -418,8 +419,8 @@ console.log('\n');
 console.log(result);
 
 console.log('\n');
-
-
+console.log('**********************************************');
+console.log('\n');
 
 
 ///////////////////////////////////////////

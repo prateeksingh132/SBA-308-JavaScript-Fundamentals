@@ -29,7 +29,7 @@ I have also created (and used during code creation) test points (log statement) 
 (1) At the start, I had difficulty visualising the interconnection of datasets (course info, assignment group, learner submission), which made it difficult for me to come up with a solid logic to solve the grading problem. I beleive this project was about understanding the interconnectedness of different dataset in great details. I created a simple text based interconnection information for example, id in course info <-->course_id in assignment info. But in retrospect, I should have created a visual model at the start, maybe a dbdiagram as was suggested by Dylan in class to make it easier. 
 
 
-(2) I also started adding all of my logic in the main function (getLearnerData()) in a try catch block and i realize mid way that the code looks too messy and big. I then stareted using helper functions. 
+(2) I also started adding all of my logic in the main function (getLearnerData()) in a try catch block and i realize mid way that the code looks too messy and big. I then started using helper functions. 
 
 
 (3) I also did not read the requirement section in the assignment doc properly. I should have started using helper function from the start.
