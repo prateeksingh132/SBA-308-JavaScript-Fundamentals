@@ -195,7 +195,7 @@ function lateOrOnTime(submittedDate, dueDate) {
 ////// data procesing:
 // i have to iterate now through my learners object, and get indivual data, like do the calculations. i will decide how to do this once i reach this point. do test till here.
 // so now i need to loop through my learberInfo object. rememeber from class, that for-in loop works best for objects
-// Note -  make sure that totalPossible is not 0 before diving (in code) so dont get infinity. CHECK THAT
+// Note -  make sure that totalPossible is not 0 before diving (in code) so dont get error. CHECK THAT
 // Note - assignment doc whants a specific format for the result array, make sure of that.
 // so i should create a new object for each learner where i will push the required result, the result in proper format - add id and average of the scores
 // also, i will need to add the specific scores for each learner (see the assignment sandbox example result)
@@ -314,15 +314,69 @@ function getLearnerData(course, ag, submissions) {
       // console.log('TESTING: learnerInfo: ', learnerInfo);
 
       ///// TESTING
-      console.log('TESTING: learnerInfo : ', learnerInfo);
+      //console.log('TESTING: learnerInfo : ', learnerInfo);
     }
 
     ////////// main loop ends
 
+    console.log('\n');
+    console.log('Main loop ends.');
+    console.log('\n');
+
     ////////// data processing starts here
 
-    // Goal: i will have to convert my learnerInfo object into the result array format mentioned in the assignment.
+    console.log('Doing final data processing.');
+    console.log('\n');
 
+    // step 10: Goal: i will have to convert my learnerInfo object into the result array format mentioned in the assignment.
+    // i need to loop through my object learnerInfo
+    for (let key in learnerInfo) {
+      let learner = learnerInfo[key];
+
+
+      ///TESTING
+      // console.log('TESTING: learner: ', learner);
+
+      // step 11: calculate the average.
+      // formula is total score / total possible points.
+      // Note: i have to make sure totalPossible is not 0 again here, before dividing, just to make sure, so i dont get some weird error or the code crashes.
+      if (learner.totalPossible !== 0) {
+        learner.avg = learner.totalScore / learner.totalPossible;
+      } else {
+        learner.avg = 0;
+      }
+
+      // step 12: create a new object, the assignment shows a specific format for the output. my learnerInfo object has extra properties like totalScore which i dont need in final result. so, i am creating a new object to store only what is needed.
+      let formattedLearner = {
+        id: learner.id,
+        avg: learner.avg
+      };
+
+      ///TESTING
+      // console.log('TESTING: formattedLearner: ', formattedLearner);
+
+      // step 13: add the individual assignment scores. 
+      // i need to loop through the learner object again to find the assignment keys.
+      for (let prop in learner) {
+        // Logic: if the key is not 'id' or 'avg' or the totals, then it must be an assignment id.
+        // so i will add that to my new object.
+        if (prop !== 'id' && prop !== 'totalScore' && prop !== 'totalPossible' && prop !== 'avg') {
+          formattedLearner[prop] = learner[prop];
+        }
+        ///TESTING
+        // console.log('TESTING: formattedLearner: ', formattedLearner);
+      }
+
+      ///TESTING
+      // console.log('TESTING: formattedLearner: ', formattedLearner);
+
+      // step 14: finally push this new learner object into the main 'result' array.
+      result.push(formattedLearner);
+
+      ///TESTING
+      // console.log('TESTING: result: ', result);
+
+    }
 
 
 
