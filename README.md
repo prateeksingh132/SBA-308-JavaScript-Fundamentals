@@ -1,6 +1,6 @@
 ##### SBA 308: JavaScript Fundamentals #####
 
-This is a project to grade leaner submissions using Javascript. The idea is to grade submissions by processing different data (course info, assignment group, learner submission) which are interconnected with each other.
+This is a project to grade learner submissions using Javascript. The idea is to grade submissions by processing different data (course info, assignment group, learner submission) which are interconnected with each other.
 
 # Technology Used:
 
