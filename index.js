@@ -422,6 +422,8 @@ function getLearnerData(course, ag, submissions) {
   // ];
 
   // final result as is asked in the assignment
+  ///TESTING
+  console.log('TESTING: final result array in loop, result: ', result);
   return result;
 }
 
