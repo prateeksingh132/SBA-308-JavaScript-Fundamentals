@@ -321,7 +321,7 @@ function getLearnerData(course, ag, submissions) {
 
     ////////// data processing starts here
 
-    
+    // Goal: i will have to convert my learnerInfo object into the result array format mentioned in the assignment.
 
 
 
