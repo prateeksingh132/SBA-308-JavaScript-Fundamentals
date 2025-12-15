@@ -293,7 +293,9 @@ function getLearnerData(course, ag, submissions) {
       let score = eachSubmission.submission.score;
       let possible = assignment.points_possible;
 
-      if (lateOrOnTime(eachSubmission.submission.submitted_at, assignment.due_at)) {
+      let submissionlate = lateOrOnTime(eachSubmission.submission.submitted_at, assignment.due_at); // 'Boolean in a variable' requirement meets here
+
+      if (submissionlate) {
         console.log(`Learner ${learnerId} submitted Assignment ${assignment.id} LATE.`);
         // deduct 10% of total points possible
         let penalty = possible * 0.10;
