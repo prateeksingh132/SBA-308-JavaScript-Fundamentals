@@ -401,7 +401,7 @@ function getLearnerData(course, ag, submissions) {
   ////////////TESTING
   // console.log('TESTING: final result array in loop, result: ', result);
   ////////////TESTING
-  
+
   return result;
 }
 
@@ -411,8 +411,8 @@ const result = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
 /////////////////////////////// printing final result
 
 console.log('\n');
-console.log('************ Grading Done ***********');
-console.log('************ Printing Final Grade Result Array ***********')
+console.log('************ Grading Process Finished ***********');
+console.log('************ Printing Final Grade Result Array ***********');
 console.log('\n');
 
 console.log(result);

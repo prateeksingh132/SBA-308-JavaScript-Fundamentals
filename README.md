@@ -8,9 +8,9 @@ Javascript
 
 # Testing
 
-I used the sample test data provided in the assignment done for testing throughout my code creation. I also created few simple dataset, course info, assignment group, learner submission, just to test out that my code works for some edge cases like points_possible==0 and assignment's course id not matching the course id in course info and made sure that the result is formatted in the exact way requested in the assignment.
+I used the sample test data provided in the assignment for testing throughout my code creation. I also created few simple dataset, course info, assignment group, learner submission, just to test out that my code works for some edge cases like points_possible==0 and assignment's course id not matching the course id in course info and made sure that the result is formatted in the exact way requested in the assignment.
 
-I have also created test points (log statement) at multiple places in the code. they are commented at the time of submission and can be uncommented for future debugging and code check. These code checks looks like:
+I have also created (and used during code creation) test points (log statement) at multiple places in the code, I have not removed them. They are commented at the time of submission and can be uncommented for future debugging and code check. These code checks looks something like:
 
 
 
