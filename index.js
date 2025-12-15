@@ -194,7 +194,15 @@ function lateOrOnTime(submittedDate, dueDate) {
 /////// main loop should stop here
 ////// data procesing:
 // i have to iterate now through my learners object, and get indivual data, like do the calculations. i will decide how to do this once i reach this point. do test till here.
-
+// so now i need to loop through my learberInfo object. rememeber from class, that for-in loop works best for objects
+// Note -  make sure that totalPossible is not 0 before diving (in code) so dont get infinity. CHECK THAT
+// Note - assignment doc whants a specific format for the result array, make sure of that.
+// so i should create a new object for each learner where i will push the required result, the result in proper format - add id and average of the scores
+// also, i will need to add the specific scores for each learner (see the assignment sandbox example result)
+// iterate through my learner object which you got from the main loop. remember the logic here, if key is != id or totalscore or avg, the it should be assignment id. maybe create if else here or switch.
+// then add the data in the new learner object which you created earlier. make sure it is in the format it is asked, test it.
+// Important: test your code at this point, make sure you get the right result in proper format.
+// add this new learner object into the result array. TEST AGAIN here and see if you get the proper format.
 
 
 
@@ -307,11 +315,13 @@ function getLearnerData(course, ag, submissions) {
 
       ///// TESTING
       console.log('TESTING: learnerInfo : ', learnerInfo);
-    } 
-    
+    }
+
     ////////// main loop ends
 
+    ////////// data processing starts here
 
+    
 
 
 
