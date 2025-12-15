@@ -236,21 +236,25 @@ function getLearnerData(course, ag, submissions) {
       let eachSubmission = submissions[i];
       let learnerId = eachSubmission.learner_id;
       let assignmentId = eachSubmission.assignment_id;
-      ///TESTING
+
+      ////////////TESTING
       // console.log('TESTING: eachSubmission: ', eachSubmission);
       // console.log('TESTING: learnerId: ', learnerId);
       // console.log('TESTING: assignmentId: ', assignmentId);
+      ////////////
 
       // get the assignment details from AssignmentGroup, which is assignments object inside assignments array inside AssignmentGroup object: use helper function and feed it with AssignmentGroup and assignmentId
       let assignment = assignmentInfo(ag, assignmentId);
-      ///TESTING
+
+      ////////////TESTING
       //console.log('TESTING: assignment: ', assignment);
+      ////////////
 
 
       // step3: ERROR HANDLING 2: CHECK: check if you can find the assignment using id. if we get null from helper function, throw error
       if (!assignment) { // if we get null from assignmentInfo() helper function, which means we didnt find the assignment, such assignment doesnt exist, hence throw error
         console.log(`Assignment ID ${assignmentId} not found. Skipping.`);
-        // CHANGE: change made here, i realise if i throw error here, it stops moving to other assignment and stops the project, which we dont want. so i am gonna use continue.
+        // CHANGE: change made here, i realize if i throw error here, it stops moving to other assignment and stops the project, which we dont want. so i am gonna use continue.
         continue;
       }
 
@@ -280,8 +284,9 @@ function getLearnerData(course, ag, submissions) {
         };
       }
 
-      ///TESTING
+      ////////////TESTING
       // console.log('TESTING: learnerInfo: ', learnerInfo);
+      ////////////
 
       // step 7: check for LATE submission and calculate score
       // i will use my helper function lateOrOnTime() here
@@ -293,8 +298,11 @@ function getLearnerData(course, ag, submissions) {
         // deduct 10% of total points possible
         let penalty = possible * 0.10;
         score = score - penalty;
-        ///TESTING
+
+        ////////////TESTING
         // console.log('TESTING: score: ', score);
+        ////////////
+
         // console.log(`New score after penalty: ${score}`);
       }
 
@@ -302,19 +310,19 @@ function getLearnerData(course, ag, submissions) {
       learnerInfo[learnerId].totalScore += score;
       learnerInfo[learnerId].totalPossible += possible;
 
-      ///TESTING
+      ////////////TESTING
       // console.log('TESTING: learnerInfo: ', learnerInfo);
+      ////////////
 
       // step 9: Calculate individual assignment percentage and store it
       // format should be key: assignment_id, value: percentage
       let percentage = score / possible;
       learnerInfo[learnerId][assignment.id] = percentage;
 
-      ///TESTING
+      ////////////TESTING
       // console.log('TESTING: learnerInfo: ', learnerInfo);
+      ////////////
 
-      ///// TESTING
-      //console.log('TESTING: learnerInfo : ', learnerInfo);
     }
 
     ////////// main loop ends
@@ -334,8 +342,9 @@ function getLearnerData(course, ag, submissions) {
       let learner = learnerInfo[key];
 
 
-      ///TESTING
+      ////////////TESTING
       // console.log('TESTING: learner: ', learner);
+      ////////////
 
       // step 11: calculate the average.
       // formula is total score / total possible points.
@@ -352,8 +361,9 @@ function getLearnerData(course, ag, submissions) {
         avg: learner.avg
       };
 
-      ///TESTING
+      ////////////TESTING
       // console.log('TESTING: formattedLearner: ', formattedLearner);
+      ////////////
 
       // step 13: add the individual assignment scores. 
       // i need to loop through the learner object again to find the assignment keys.
@@ -363,72 +373,53 @@ function getLearnerData(course, ag, submissions) {
         if (prop !== 'id' && prop !== 'totalScore' && prop !== 'totalPossible' && prop !== 'avg') {
           formattedLearner[prop] = learner[prop];
         }
-        ///TESTING
+
+        ////////////TESTING
         // console.log('TESTING: formattedLearner: ', formattedLearner);
+        ////////////
+
       }
 
-      ///TESTING
+      ////////////TESTING
       // console.log('TESTING: formattedLearner: ', formattedLearner);
+      ////////////
 
       // step 14: finally push this new learner object into the main 'result' array.
       result.push(formattedLearner);
 
-      ///TESTING
+      ////////////TESTING
       // console.log('TESTING: result: ', result);
+      ////////////
 
     }
-
-
-
-
-
-
-
-
 
 
   } catch (error) {
     console.log("ERROR: ", error.message);
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // // here, we would process this data to achieve the desired result.
-  // const result = [
-  //   {
-  //     id: 125,
-  //     avg: 0.985, // (47 + 150) / (50 + 150)
-  //     1: 0.94, // 47 / 50
-  //     2: 1.0 // 150 / 150
-  //   },
-  //   {
-  //     id: 132,
-  //     avg: 0.82, // (39 + 125) / (50 + 150)
-  //     1: 0.78, // 39 / 50
-  //     2: 0.833 // late: (140 - 15) / 150
-  //   }
-  // ];
-
-  // final result as is asked in the assignment
-  ///TESTING
-  console.log('TESTING: final result array in loop, result: ', result);
+  ////////////TESTING
+  // console.log('TESTING: final result array in loop, result: ', result);
+  ////////////TESTING
+  
   return result;
 }
 
 const result = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
 
+
+/////////////////////////////// printing final result
+
+console.log('\n');
+console.log('************ Grading Done ***********');
+console.log('************ Printing Final Grade Result Array ***********')
+console.log('\n');
+
 console.log(result);
 
+console.log('\n');
 
+
+
+
+///////////////////////////////////////////
